@@ -33,7 +33,7 @@
 				<th>가격</th>
 				<th>입고일</th>
 	</tr>
-	
+
 <%
 		List<BookDTO> list = bdao.findBook(search, searchString);
 		if (list == null || list.size()==0){%>
