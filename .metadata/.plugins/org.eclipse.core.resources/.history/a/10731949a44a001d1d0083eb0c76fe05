@@ -1,0 +1,55 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ page import="java.sql.*" %>
+<!-- find.jsp -->
+<html>
+<head>
+<title>학생목록</title>
+</head>
+<body>
+	<div align="center">
+		<hr color="green" width="300">
+		<h2>학 생 목 록 페 이 지</h2>
+		<hr color="green" width="300">
+		<table border="1" width="500">
+			<tr>
+				<th>아이디</th>
+				<th>학생명</th>
+				<th>학급명</th>
+			</tr>
+<%
+	String str = request.getParameter("name");
+	
+	if(str==null||str.trim().equals("")){
+		response.sendRedirect("student.jsp");
+		return;
+	}
+	
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "bigdata02", "bigdata02");
+	
+	String sql = "select * from student where name=?";
+	PreparedStatement ps = con.prepareStatement(sql);
+	ps.setString(1, str);
+	
+	ResultSet rs = ps.executeQuery();
+	while(rs.next()){
+		String id = rs.getString("id");
+		String name = rs.getString("name");
+		String cname = rs.getString("cname");%>
+		<tr>
+			<td><%=id%></td>
+			<td><%=name%></td>
+			<td><%=cname%></td>
+		</tr>
+<%			}%>
+<%
+			rs.close();
+			ps.close();
+			con.close();
+
+%>
+		</table>
+	</div>
+</body>
+</html>

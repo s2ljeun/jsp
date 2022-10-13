@@ -1,0 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!-- result.jsp -->
+<%
+	String id = request.getParameter("id");
+	String pwd = request.getParameter("pwd");
+	if(pwd.equals("1234")){%>
+		<h2><%=id%>´Ô ¹Ý°©½À´Ï´Ù.</h2>
+<%	}%>
+

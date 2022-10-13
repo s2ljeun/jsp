@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!-- find.jsp -->
+<%
+		request.setCharacterEncoding("EUC-KR");
+		String search = request.getParameter("search");
+		String searchString = request.getParameter("searchString");
+		if (search==null || search.trim().equals("") || 
+				searchString==null || searchString.trim().equals("")){
+			response.sendRedirect("book.jsp");
+			return;
+		}
+%>

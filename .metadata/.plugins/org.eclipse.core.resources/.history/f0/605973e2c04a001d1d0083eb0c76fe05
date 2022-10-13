@@ -1,0 +1,47 @@
+package my.book;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+
+public class BookDAO { //Data Access Object => CRUD
+	Connection con;
+	PreparedStatement ps;
+	ResultSet rs;
+
+	Date today=  new Date();
+	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	String date = df.format(today);
+	
+	String url, user, pass;
+	
+	public BookDAO() {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		}catch(ClassNotFoundException e) {
+			System.err.println("오라클 드라이버 검색 실패!!");
+		}
+		
+		url = "jdbc:oracle:thin:@localhost:1521:xe";
+		user = "bigdata02";
+		pass = "bigdata02";
+	}
+	
+	public int insertBook(String bookname, String writer,
+							String publisher, String price) throws SQLException {
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			String sql = "insert into jspbook values(?, ?, ?, ?, ?)";
+			
+			ps = con.prepareStatement(sql);
+			ps.setString(1, bookname);
+			ps.setString(2, writer);
+			ps.setString(3, publisher);
+			ps.setInt(4, Integer.parseInt(price));
+			ps.setString(5, publisher);
+			int res = ps.executeUpdate();
+			return res;
+		}finally {
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
+}

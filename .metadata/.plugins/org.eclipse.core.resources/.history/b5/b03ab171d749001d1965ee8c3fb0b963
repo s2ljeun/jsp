@@ -1,0 +1,26 @@
+<!-- test4.html -->
+<html>
+<head>
+	<title>표그리기</title>
+</head>
+<body>
+	<div align="center">
+		<table border="5" width="300" height="300" bordercolor="red">
+			<tr bgcolor="green">
+				<th bordercolor="red">이름</th>
+				<th>주소</th>
+				<th>전화번호</th>
+			</tr>
+			<tr>
+				<td rowspan="2">유재석</td>
+				<td>서울 강북구</td>
+				<td>123-1234</td>
+			</tr>
+			<tr>
+				<td>서울 강남구</td>
+				<td>222-2323</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+package my.book;
+import java.sql.*;
+
+public class BookDAO {
+	
+	public BookDAO() {
+		
+	}
+	
+	public int insertBook(String bookname, String writer,
+							String publisher, String price) throws SQLException {
+
+	}
+}

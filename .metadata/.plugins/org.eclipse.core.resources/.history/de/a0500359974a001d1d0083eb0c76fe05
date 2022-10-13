@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>\<!-- list.jps -->
+<!-- list.jsp -->
+<html>
+<head>
+<title>학생목록</title>
+</head>
+<body>
+	<div align="center">
+		<hr color="green" width="300">
+		<h2>학 생 목 록 페 이 지</h2>
+		<hr color="green" width="300">
+		<table border="1" width="500">
+			<tr>
+				<th>아이디</th>
+				<th>학생명</th>
+				<th>학급명</th>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

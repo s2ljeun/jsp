@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ page import="java.sql.*" %>
+<!-- find.jsp -->
+<%
+	String name = request.getParameter("name");
+	
+	if(name==null||name.trim().equals("")){
+		response.sendRedirect("student.jsp");
+		return;
+	}
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "bigdata02", "bigdata02");
+	String sql = "select * from student where name=?";
+	PreparedStatement ps = con.prepareStatement(sql);
+	
+	ResultSet rs = ps.executeQuery();
+
+%>

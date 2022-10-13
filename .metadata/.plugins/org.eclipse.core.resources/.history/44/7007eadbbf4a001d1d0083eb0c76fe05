@@ -1,0 +1,12 @@
+package my.book;
+import java.sql.*;
+
+public class BookDAO {
+	
+	public BookDAO() {
+		
+	}
+	
+	public int insertBook() throws SQLException {
+
+}

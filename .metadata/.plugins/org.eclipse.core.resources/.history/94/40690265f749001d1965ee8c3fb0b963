@@ -1,0 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%
+	request.setCharacterEncoding("EUC-KR"); //post방식에서의 한글 처리 방식
+	String name = request.getParameter("name");
+	String tel = request.getParameter("tel");
+	String addr = request.getParameter("addr");
+	%>
+	<h2><%=name%>님의 전화번호는 <%=tel%>번입니다.</h2>
+	<h2>주소: <%=addr%></h2>

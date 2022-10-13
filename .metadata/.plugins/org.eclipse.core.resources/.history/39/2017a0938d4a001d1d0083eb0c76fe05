@@ -1,0 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!-- 위는 페이지 지시어 -->
+<!-- index.jsp -->
+
+<%@ include file="top.jsp" %>
+<h3>여기에 내용을 넣기</h3>
+<%@ include file="bottom.jsp" %>

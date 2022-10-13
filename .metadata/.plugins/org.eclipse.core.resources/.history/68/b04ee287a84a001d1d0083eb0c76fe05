@@ -1,0 +1,8 @@
+package my.student;
+
+import java.sql.*;
+public class StudentDAO { //Data Access Object => CRUD
+	Connection con;
+	PreparedStatement ps;
+	ResultSet rs;
+}

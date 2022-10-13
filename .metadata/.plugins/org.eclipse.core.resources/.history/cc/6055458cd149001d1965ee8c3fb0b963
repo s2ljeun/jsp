@@ -1,0 +1,31 @@
+<!-- test3.html -->
+<html>
+<head>
+	<title>html연습</title>
+</head>
+<body>
+	<ul type="square">
+		<li>자바프로그래밍</li>
+		<li>파이썬프로그래밍</li>
+		<li>하둡프로그래밍</li>
+		<li>스프링프로그래밍</li>
+	</ul>
+	
+	<ol type="A">
+		<li>자바프로그래밍</li>
+		<li>파이썬프로그래밍</li>
+		<li>하둡프로그래밍</li>
+		<li>스프링프로그래밍</li>
+	</ol>
+
+<!--
+	<font size="1">html 글씨 태그</font><br>
+	<font size="2">html 글씨 태그</font><br>
+	<font size="3">html 글씨 태그</font><br>
+	<font size="4">html 글씨 태그</font><br>
+	<font size="5" color="red" face="궁서">html 글씨 태그</font><br>
+	<font size="6">html 글씨 태그</font><br>
+	<font size="7">html 글씨 태그</font><br>
+ -->
+</body>
+</html>

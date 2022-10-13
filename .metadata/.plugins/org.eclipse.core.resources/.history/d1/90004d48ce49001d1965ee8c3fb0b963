@@ -1,0 +1,18 @@
+<!-- test2.html -->
+<html>
+<head>
+	<title>html연습</title>
+</head>
+<body>
+	<h1>html연습</h1>
+	<h2>html연습</h2>
+	<h3>html연습</h3>
+	<h4>html연습</h4>
+	<h5>html연습</h5>
+	<h6>html연습</h6>
+	안녕하세요<br>
+	반갑습니다<p>
+	html 실습입니다
+	<hr>
+</body>
+</html>

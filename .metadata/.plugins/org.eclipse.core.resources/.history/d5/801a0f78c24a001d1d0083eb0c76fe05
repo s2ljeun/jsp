@@ -1,0 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!-- delete.jsp -->
+<%
+	request.setCharacterEncoding("EUC-KR");
+	String bookname = request.getParameter("bookname");
+	
+	if(bookname==null||bookname.trim().equals("")){%>
+			<script type="text/javascript">
+				alert("책 이름을 입력해주세요!");
+				history.back();
+			</script>
+<%			return;
+		}%>
+		
+	<jsp:useBean id="stdao" class="my.book.BookDAO" />
+	
+<%
+	int res = stdao.deleteBook(bookname);
+	if (res>0){%>
+		<script type="text/javascript">
+			alert("도서삭제 성공!! 도서목록페이지로 이동합니다.")
+			location.href="list.jsp" //자바스크립트의 a태그 - 해당 파일로 이동
+		</script>			
+<%	}else {%>
+		<script type="text/javascript">
+			alert("도서삭제 실패!! 도서관리페이지로 이동합니다.")
+			location.href="book.jsp"
+		</script>
+<%	} %>

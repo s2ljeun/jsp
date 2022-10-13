@@ -1,0 +1,11 @@
+package my.book;
+
+public class BookDTO {//Data Transfer Object
+	// 1. table의 컬럼이름을 멤버필드로 한다
+	// 2. setter, getter메소드를 만들어 준다(모든 멤버필드에 대해)
+	private String bookname;
+	private String writer;
+	private String publisher;
+	private int price;
+	private String indate;
+}

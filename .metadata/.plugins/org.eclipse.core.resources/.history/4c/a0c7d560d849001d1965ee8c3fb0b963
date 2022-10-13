@@ -1,0 +1,54 @@
+<!-- test4.html -->
+<html>
+<head>
+	<title>표그리기</title>
+</head>
+<body>
+	<div align="center">
+		<table border="5" width="300" height="300" bordercolor="red">
+			<tr bgcolor="green">
+				<th bordercolor="red">이름</th>
+				<th>주소</th>
+				<th>전화번호</th>
+			</tr>
+			<tr>
+				<td rowspan="2">유재석</td>
+				<td colspan="2">서울 강북구(123-1234)</td>
+			</tr>
+			<tr>
+				<td>서울 강남구</td>
+				<td>222-2323</td>
+			</tr>
+		</table>
+	</div>
+	
+	<table border="2" bordercolor="red">
+		<tr bordercolor="red">
+			<td>점검장소</td><td colspan="2">차종</td>
+		</tr>
+		<tr bordercolor="red">
+			<td rowspan="7">1급정비사업소</td><td rowspan="3">비사업용</td><td>승용자동차</td>
+		</tr>
+		<tr bordercolor="red">
+			<td>피견인 자동차</td>
+		</tr>
+		<tr bordercolor="red">
+			<td>기타 자동차</td>
+		</tr>
+		<tr bordercolor="red">
+			<td rowspan="4">사업용</td><td>승용자동차</td>
+		</tr>
+		<tr>
+			<td>소형화물자동차</td>
+		</tr>
+		<tr>
+			<td>피견인자동차</td>
+		</tr>
+		<tr>
+			<td>기타 자동차</td>
+		</tr>
+	</table>
+	
+	
+</body>
+</html>

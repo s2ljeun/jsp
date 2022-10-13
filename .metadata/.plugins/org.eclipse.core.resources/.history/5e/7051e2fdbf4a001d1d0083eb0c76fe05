@@ -1,0 +1,19 @@
+package my.book;
+import java.sql.*;
+
+public class BookDAO { //Data Access Object => CRUD
+	Connection con;
+	PreparedStatement ps;
+	ResultSet rs;
+	
+	String url, user, pass;
+	
+	public BookDAO() {
+		
+	}
+	
+	public int insertBook(String bookname, String writer,
+							String publisher, String price) throws SQLException {
+		
+	}
+}

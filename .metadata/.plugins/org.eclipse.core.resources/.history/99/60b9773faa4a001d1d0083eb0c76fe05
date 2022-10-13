@@ -1,0 +1,38 @@
+package my.student;
+
+import java.sql.*;
+public class StudentDAO { //Data Access Object => CRUD
+	Connection con;
+	PreparedStatement ps;
+	ResultSet rs;
+	
+	String url, user, pass;
+	
+	public StudentDAO() { // jsp파일-> 경로가 다른 곳에서 사용할 것이므로 반드시 '퍼블릭' 생성자를 만들어야 함.
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		}catch(ClassNotFoundException e) {
+			System.err.println("오라클 드라이버 검색 실패!!");
+		}
+		
+		url = "jdbc:oracle:thin:@localhost:1521:xe";
+		user = "bigdata02";
+		pass = "bigdata02";
+	}
+	
+	public int insertStudent(String id, String name, String cname) throws SQLException {
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			String sql = "insert into student values(?, ?, ?)";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, name);
+			ps.setString(3, cname);
+			int res = ps.executeUpdate();
+			return res;
+		}finally { //예외전가 해줬음에도 finally 쓴 이유 / 멀티스레드로 현재 실행중인 프로그램에 영향 주지 않게 db닫아주기 위해서
+			if (ps != null) ps.close(); // null이 아니라면 db가 닫히지 않은 것이므로 닫아주기
+			if (con != null) con.close();
+		}
+	}
+}
