@@ -1,73 +1,68 @@
 package my.member;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import my.book.BookDTO;
+import my.db.ConnectionPoolBean;
 
 public class MemberDAO {
-	Connection con; //db연결용 1
-	PreparedStatement ps; //동적쿼리용
-	ResultSet rs; //(select)결과용
+	Connection con;
+	PreparedStatement ps;
+	ResultSet rs;
 	
-	String url, user, pass; //db연결용2
+	//String url, user, pass;
 	
 	private String search;
 	private String searchString;
-	
-	public String getSearch() {
-		return search;
-	}
-
 	public void setSearch(String search) {
 		this.search = search;
 	}
-
-	public String getSearchString() {
-		return searchString;
-	}
-
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
 	}
 
+	private ConnectionPoolBean pool;
+	public void setPool(ConnectionPoolBean pool) {
+		this.pool = pool;
+	}
+	
 	public MemberDAO() {
+		/*
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		}catch(ClassNotFoundException e) {
-			//System.err.println("오라클 드라이버 검색 실패!!");
 			//System.out.println(e.getMessage());
-			e.printStackTrace(); //e.getMessage + 스택에 들어가있는 파일들을 모두 보여준다.(내가 코딩한 파일을 보며 에러찾기)
+			e.printStackTrace();
 		}
-		
 		url = "jdbc:oracle:thin:@localhost:1521:xe";
 		user = "bigdata02";
 		pass = "bigdata02";
+		*/
 	}
 	
 	public boolean checkMember(String name, String ssn1, String ssn2) throws SQLException {
 		try {
-			con = DriverManager.getConnection(url, user, pass);
-			String sql = "select * from jsp_member where name=? and ssn1=? and ssn2=? ";
+			//con = DriverManager.getConnection(url, user, pass);
+			con = pool.getConnection();
+			String sql = "select * from jsp_member where ssn1=? and ssn2=?";
 			ps = con.prepareStatement(sql);
-			ps.setString(1, name);
-			ps.setString(2, ssn1);
-			ps.setString(3, ssn2);
+			ps.setString(1, ssn1);
+			ps.setString(2, ssn2);
 			rs = ps.executeQuery();
-			
-			if(rs.next()) return true; //검색결과가 존재하면
-			else return false; //존재하지 않으면
+			if (rs.next()) return true;
+			else return false;
 		}finally {
 			if (rs != null) rs.close();
 			if (ps != null) ps.close();
-			if (con != null) con.close();
+			if (con != null) pool.returnConnection(con);
 		}
 	}
 	
-	public int insertMember(MemberDTO dto) throws SQLException{
+	public int insertMember(MemberDTO dto) throws SQLException {
 		try {
-			con = DriverManager.getConnection(url, user, pass);
-			String sql = "insert into jsp_member values(member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+			con = pool.getConnection();
+			String sql = "insert into jsp_member values(member_seq.nextval, ?,?,?,?,?,?,?,?,?,sysdate)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getName());
 			ps.setString(2, dto.getId());
@@ -79,45 +74,29 @@ public class MemberDAO {
 			ps.setString(8, dto.getHp2());
 			ps.setString(9, dto.getHp3());
 			int res = ps.executeUpdate();
-			return res;			
-		}finally {
-			if (ps != null) ps.close();
-			if (con != null) con.close();
-		}
-		
-	}
-	
-	public int deleteMember(int no) throws SQLException{
-		try {
-			con = DriverManager.getConnection(url, user, pass);
-			String sql = "delete from jsp_member where no = ?";
-			ps = con.prepareStatement(sql);
-			ps.setInt(1, no);
-			int res = ps.executeUpdate();
 			return res;
 		}finally {
 			if (ps != null) ps.close();
-			if (con != null) con.close();
+			if (con != null) pool.returnConnection(con);
 		}
 	}
 	
-	public List<MemberDTO> listMember() throws SQLException{
+	public List<MemberDTO> listMember() throws SQLException {
 		try {
-			con = DriverManager.getConnection(url, user, pass);
+			con = pool.getConnection();
 			String sql = "select * from jsp_member";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-
 			List<MemberDTO> list = makeList(rs);
 			return list;
 		}finally {
 			if (rs != null) rs.close();
 			if (ps != null) ps.close();
-			if (con != null) con.close();
+			if (con != null) pool.returnConnection(con);
 		}
 	}
 	
-	protected List<MemberDTO> makeList(ResultSet rs) throws SQLException{
+	protected List<MemberDTO> makeList(ResultSet rs) throws SQLException {
 		List<MemberDTO> list = new ArrayList<>();
 		while(rs.next()) {
 			MemberDTO dto = new MemberDTO();
@@ -137,27 +116,40 @@ public class MemberDAO {
 		return list;
 	}
 	
-	public MemberDTO getMember(int no) throws SQLException{
+	public int deleteMember(int no) throws SQLException{
 		try {
-			con = DriverManager.getConnection(url, user, pass);
+			con = pool.getConnection();
+			String sql = "delete from jsp_member where no = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, no);
+			int res = ps.executeUpdate();
+			return res;
+		}finally {
+			if (ps != null) ps.close();
+			if (con != null) pool.returnConnection(con);
+		}
+	}
+	
+	public MemberDTO getMember(int no) throws SQLException {
+		try {
+			con = pool.getConnection();
 			String sql = "select * from jsp_member where no = ?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, no);
 			rs = ps.executeQuery();
-
 			List<MemberDTO> list = makeList(rs);
-			return list.get(0); //1개만 가져와...
+			return list.get(0);
 		}finally {
 			if (rs != null) rs.close();
 			if (ps != null) ps.close();
-			if (con != null) con.close();
+			if (con != null) pool.returnConnection(con);
 		}
 	}
 	
-	public int updateMember(MemberDTO dto) throws SQLException{
+	public int updateMember(MemberDTO dto) throws SQLException {
 		try {
-			con = DriverManager.getConnection(url, user, pass);
-			String sql = "update jsp_member set passwd=?, email=?, hp1=?, hp2=?, hp3=? where no=?";
+			con = pool.getConnection();
+			String sql = "update jsp_member set passwd=?, email=?, hp1=?, hp2=?, hp3=? where no = ?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getPasswd());
 			ps.setString(2, dto.getEmail());
@@ -165,31 +157,37 @@ public class MemberDAO {
 			ps.setString(4, dto.getHp2());
 			ps.setString(5, dto.getHp3());
 			ps.setInt(6, dto.getNo());
-			
 			int res = ps.executeUpdate();
 			return res;
 		}finally {
 			if (ps != null) ps.close();
-			if (con != null) con.close();
+			if (con != null) pool.returnConnection(con);
 		}
 	}
 	
-	public List<MemberDTO> findMember() throws SQLException{
+	public List<MemberDTO> findMember() throws SQLException {
 		try {
-			con = DriverManager.getConnection(url, user, pass);
-			String sql = "select * from jsp_member where " +search+ "=?";
+			con = pool.getConnection();
+			String sql = "select * from jsp_member where "+search+" = ?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, searchString);
 			rs = ps.executeQuery();
-
 			List<MemberDTO> list = makeList(rs);
 			return list;
 		}finally {
+			if (rs != null) rs.close();
 			if (ps != null) ps.close();
-			if (con != null) con.close();
+			if (con != null) pool.returnConnection(con);
 		}
 	}
-	
-
-
 }
+
+
+
+
+
+
+
+
+
+

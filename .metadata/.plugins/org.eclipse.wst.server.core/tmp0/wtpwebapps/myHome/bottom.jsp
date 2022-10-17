@@ -11,7 +11,4 @@
 		</table>
 	</div>
 </body>
-
 </html>
-
-<!-- 톰캣이 jsp => java => class 로 변환하여 서버에서 실행-->

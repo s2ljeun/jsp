@@ -2,20 +2,22 @@
     pageEncoding="EUC-KR"%>
 <!-- member_input.jsp -->
 <%
-	request.setCharacterEncoding("EUC-KR");
+		request.setCharacterEncoding("EUC-KR");
 %>
 <jsp:useBean id="mbdto" class="my.member.MemberDTO"/>
-
-<jsp:setProperty name="mbdto" property="*"/>
 <!-- mbdto.setName(request.getParameter("name")); -->
-<%-- 파라메터명과 같은 변수를 dto에서 자동으로 찾아서 set해준다!!! table의 컬럼명, form태그의 parameter명, dto의 멤버필드 이름은 통일시키자 --%>
+<jsp:setProperty name="mbdto" property="*"/>
+<%-- table의 컬럼명, form태그의 parameter명, dto의 멤버필드 이름은 통일시키자 --%>
 <%
-	if (mbdto.getName() == null || mbdto.getName().trim().equals("")){
-		response.sendRedirect("memberSsn.jsp");
-		return;
-	}
+		if (mbdto.getName() == null || mbdto.getName().trim().equals("")){
+			response.sendRedirect("memberSsn.jsp");
+			return;
+		}
 %>
 <jsp:useBean id="mbdao" class="my.member.MemberDAO" />
+<jsp:useBean id="pool" class="my.db.ConnectionPoolBean" scope="application"/>
+<jsp:setProperty property="pool" name="mbdao" value="<%=pool%>"/>
+
 <%
 		int res = mbdao.insertMember(mbdto);
 		if (res>0){%>
@@ -29,3 +31,6 @@
 				location.href="memberSsn.jsp"
 			</script>	
 <%	} %>
+
+
+

@@ -9,6 +9,8 @@
 		}
 %>
 <jsp:useBean id="mbdao" class="my.member.MemberDAO" />
+<jsp:useBean id="pool" class="my.db.ConnectionPoolBean" scope="application"/>
+<jsp:setProperty property="pool" name="mbdao" value="<%=pool%>"/>
 <%
 		int res = mbdao.deleteMember(Integer.parseInt(no));
 		String msg = null, url = "memberAll.jsp";
@@ -22,3 +24,19 @@
 	alert("<%=msg%>")
 	location.href="<%=url%>"
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

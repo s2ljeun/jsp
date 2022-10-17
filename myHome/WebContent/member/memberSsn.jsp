@@ -19,9 +19,8 @@
 				</tr>
 				<tr>
 					<th>주민번호</th>
-					<td><input type="text" name="ssn1" class="box" maxlength="6"> -
-						<input type="password" name="ssn2" class="box" maxlength="7">
-					</td>
+					<td><input type="text" name="ssn1" class="box" maxlength="6"> - 
+					<input type="password" name="ssn2" class="box" maxlength="7"></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
@@ -29,10 +28,8 @@
 						<input type="reset" value="다시입력">
 					</td>
 				</tr>
-				
 			</table>
 		</form>
-	
 	</div>
 </body>
 </html>

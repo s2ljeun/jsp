@@ -1,0 +1,26 @@
+<!-- test1.html -->
+<html>
+<head>
+	<title>scope테스트</title>
+</head>
+<body>
+	<div align="center">
+		<hr color="green" width="300">
+		<h2>스 코 프 테 스 트</h2>
+		<hr color="green" width="300">
+		<form name="f" action="scope.jsp" method="post">
+			스코프값 : <input type="text" name="count">
+			<input type="submit" value="전송">
+		</form>
+	</div>
+</body>
+</html>
+<!-- 
+
+scope 사용범위
+page	: default, 현재 page에서만 사용가능, 현재 page를 벗어나면 소멸됨
+request	: 두개의 page에서 사용가능, forward나 include 등 jsp에서의 내부이동에서만 사용가능
+session	: 로그인 상태동안, session 타임이 유지되는 동안 자신은 계속해서 유지
+application: 모든 사용자에게 동시에 적용, 유지된다
+
+ -->
