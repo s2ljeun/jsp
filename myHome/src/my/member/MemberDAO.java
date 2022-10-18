@@ -59,6 +59,7 @@ public class MemberDAO {
 		}
 	}
 	
+	
 	public int insertMember(MemberDTO dto) throws SQLException {
 		try {
 			con = pool.getConnection();
@@ -146,6 +147,24 @@ public class MemberDAO {
 		}
 	}
 	
+	public MemberDTO getMember(String id) throws SQLException {
+		try {
+			con = pool.getConnection();
+			String sql = "select * from jsp_member where id = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			List<MemberDTO> list = makeList(rs);
+			if(list.size()==0) return null;
+			return list.get(0);
+		}finally {
+			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) pool.returnConnection(con);
+		}
+	}
+	
+	
 	public int updateMember(MemberDTO dto) throws SQLException {
 		try {
 			con = pool.getConnection();
@@ -174,6 +193,42 @@ public class MemberDAO {
 			rs = ps.executeQuery();
 			List<MemberDTO> list = makeList(rs);
 			return list;
+		}finally {
+			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) pool.returnConnection(con);
+		}
+	}
+	
+	public String searchMember(String name, String ssn1, String ssn2, String id) throws SQLException{
+		try {
+			con = pool.getConnection();
+			String sql;
+			if(id==null) { //아이디 찾기
+				sql = "select id from jsp_member where name=? and ssn1=? and ssn2=?";
+			}else { //비밀번호 찾기
+				sql = "select passwd from jsp_member where name=? and ssn1=? and ssn2=? and id=?";
+			}
+			
+			ps = con.prepareStatement(sql);
+			ps.setString(1, name);
+			ps.setString(2, ssn1);
+			ps.setString(3, ssn2);
+			if(id != null) ps.setString(4, id);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				String msg = rs.getNString(1);
+				if(id==null) {
+					msg = "회원님의 아이디는 " + msg + "입니다.";
+				}else {
+					msg = "회원님의 비밀번호는 " + msg + "입니다.";
+				}
+				return msg;
+			}else {
+				return "입력된 데이터와 일치하는 회원이 없습니다.";
+			}
+			
 		}finally {
 			if (rs != null) rs.close();
 			if (ps != null) ps.close();

@@ -16,7 +16,7 @@ public class ConnectionPoolBean {
 		
 		for(int i=0; i<5; ++i){
 			Connection con = DriverManager.getConnection(url, user, pass);
-			ht.put(con, Boolean.FALSE);
+			ht.put(con, Boolean.FALSE); //생성자 - 객체 만들 때 5개 연결 만들고 false값도 담아서 각각 ht에 넣기
 		}
 	}
 	

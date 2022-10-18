@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!-- scope.jsp -->
-<jsp:useBean id="obj" class="my.scope.Counter" scope="application" />
+<jsp:useBean id="obj" class="my.scope.Counter" scope="request"/>
 <jsp:setProperty property="*" name="obj"/>
 <%//property="*" => 파라메터 이름의 setter메소드를  찾는다%>
 
