@@ -1,9 +1,0 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ page import="java.sql.*" %>
-<!-- find.jsp -->
-<%
-Class.forName("oracle.jdbc.driver.OracleDriver");
-Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "bigdata02", "bigdata02");
-
-%>

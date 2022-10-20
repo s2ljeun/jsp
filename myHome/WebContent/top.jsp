@@ -30,7 +30,8 @@
 					<a href="javascript:checkMember()">회원가입</a> | 
 					<a href="<%=request.getContextPath()%>/member/memberAll.jsp">회원보기</a> |
 					<a href="<%=request.getContextPath()%>/member/memberAll.jsp?mode=find">회원찾기</a> |
-					게시판 | 
+					<a href="<%=request.getContextPath()%>/board/list.jsp">게시판</a> | 
+					<a href="<%=request.getContextPath()%>/myshop/admin/main.jsp">쇼핑몰(관리자)</a> | 
 					<a href="<%=request.getContextPath()%>/company.jsp">회사소개</a>
 				</td>
 			</tr>
