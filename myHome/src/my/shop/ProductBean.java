@@ -79,10 +79,10 @@ public class ProductBean {
 		}
 	}
 	
-	public ProductDTO viewProd(int pnum) throws SQLException {
+	public ProductDTO getProduct(int pnum) throws SQLException {
 		try {
 			con = pool.getConnection();
-			String sql = "select * from product where pnum=?";
+			String sql = "select * from product where pnum = ?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, pnum);
 			rs = ps.executeQuery();
@@ -90,6 +90,47 @@ public class ProductBean {
 			return list.get(0);
 		}finally {
 			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) pool.returnConnection(con);
+		}
+	}
+	
+	public int deleteProd(int pnum) throws SQLException {
+		try {
+			con = pool.getConnection();
+			String sql = "delete from product where pnum = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, pnum);
+			int res = ps.executeUpdate();
+			return res;
+		}finally {
+			if (ps != null) ps.close();
+			if (con != null) pool.returnConnection(con);
+		}
+	}
+	
+	public int updateProd(MultipartRequest mr) throws SQLException {
+		try {
+			con = pool.getConnection();
+			String sql = "update product set pname=?, pcompany=?, pimage=?, pqty=?, price=?, "
+					+ "pspec=?, pcontents=?, point=? where pnum=?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, mr.getParameter("pname"));
+			ps.setString(2, mr.getParameter("pcompany"));
+			String filename = mr.getFilesystemName("pimage");
+			if (filename==null) {
+				filename = mr.getParameter("pimage2");
+			}
+			ps.setString(3, filename);
+			ps.setInt(4, Integer.parseInt(mr.getParameter("pqty")));
+			ps.setInt(5, Integer.parseInt(mr.getParameter("price")));
+			ps.setString(6, mr.getParameter("pspec"));
+			ps.setString(7, mr.getParameter("pcontents"));
+			ps.setInt(8, Integer.parseInt(mr.getParameter("point")));
+			ps.setInt(9, Integer.parseInt(mr.getParameter("pnum")));
+			int res = ps.executeUpdate();
+			return res;
+		}finally {
 			if (ps != null) ps.close();
 			if (con != null) pool.returnConnection(con);
 		}
