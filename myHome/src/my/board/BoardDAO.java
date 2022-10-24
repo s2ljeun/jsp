@@ -19,12 +19,19 @@ public class BoardDAO {
 	public BoardDAO() {
 	}
 	
-	public List<BoardDTO> listBoard() throws SQLException {
+	public List<BoardDTO> listBoard(int start, int end) throws SQLException {
 		try {
 			con = pool.getConnection();
-			String sql = "select * from board order by re_step asc";
-			//order by는 소트를 하겠다는 것, desc는 내림차순, asc는 오름차순 default는 오름차순
+			String sql  = "select * from (select rownum rn, A.* from "+ "(select * from board order by re_step asc)A) "
+					+ "where rn between ? and ?";
+			//맨처음 (select * from board order by re_step asc) 의 결과를 A라고 하고,
+			//두번째 (select rownum rn, A.* from )의 A값을 넣어주고, rownum의 결과를 rn으로 하겠다는 뜻
+			// (rownum은 row마다 번호를 하나씩 준다는 오라클 명령어, rn은 rownum의 변수이름인 셈 int num처럼)
+			//세번째 between은 어디부터 어디까지(포함)+ 라는 조건이며,
+			//네번째 select * from 해서 처음, 두번째, 세번째 결과값을 반환해준다
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
 			rs = ps.executeQuery();
 			List<BoardDTO> list = makeList(rs);
 			return list;
@@ -159,6 +166,21 @@ public class BoardDAO {
 				return -1;	
 			}
 		}finally {
+			if (ps != null) ps.close();
+			if (con != null) pool.returnConnection(con);
+		}
+	}
+	
+	public int getCount() throws SQLException {
+		try {
+			con = pool.getConnection();
+			String sql = "select count(*) from board";
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}finally {
+			if (rs != null) rs.close();
 			if (ps != null) ps.close();
 			if (con != null) pool.returnConnection(con);
 		}

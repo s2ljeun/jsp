@@ -8,14 +8,21 @@
 			return;
 		}
 %>
+<%@ include file="../top.jsp"%>
+<link rel="stylesheet" type="text/css" href="../style.css">
+<%	if (!isLogin){%>
+		<script type="text/javascript">
+			alert("로그인을 먼저 해 주세요!!")
+			location.href="<%=request.getContextPath()%>/login/login.jsp"
+		</script>	
+<%		return;
+		}%>
 <jsp:useBean id="bdao" class="my.board.BoardDAO"/>
 <jsp:useBean id="pool" class="my.db.ConnectionPoolBean" scope="application"/>
 <jsp:setProperty property="pool" name="bdao" value="<%=pool%>"/>		
 <%
 		BoardDTO dto = bdao.getBoard(Integer.parseInt(num), "content");
 %>
-<%@ include file="../top.jsp"%>
-<link rel="stylesheet" type="text/css" href="../style.css">
 <div align="center">
 	<b>글내용 보기</b><br>
 	<table border="1" width="500">

@@ -11,6 +11,16 @@
 		}
 %>
 <%@ include file="mall_top.jsp"%>
+<script type="text/javascript">
+	function goCart(){
+		document.go.action="<%=request.getContextPath()%>/myshop/display/mall_cartAdd.jsp"
+		document.go.submit()
+	}
+	function goOrder(){
+		document.go.action="<%=request.getContextPath()%>/myshop/display/mall_order.jsp"
+		document.go.submit()
+	}
+</script>
 <jsp:useBean id="prodList" class="my.shop.mall.ProductList" scope="session"/>
 <jsp:setProperty property="pool" name="prodList" value="<%=pool%>"/>
 <%
@@ -34,8 +44,13 @@
 				상품이름 : <%=dto.getPname()%><br>
 				상품가격 : <font color="red"><%=df.format(dto.getPrice())%></font>원<br>
 				상품포인트 : <font color="green"><%=df.format(dto.getPoint())%></font>point<br>
-				상품갯수 : <input type="text" name="pqty" value="<%=dto.getPqty()%>" size="2">개<br>
-				장바구니담기 | 즉시 구매하기
+				<form name="go" method="post">
+				상품갯수 : <input type="text" name="pqty" value="1" size="2">개<br><br>
+					<input type="hidden" name="pnum" value="<%=dto.getPnum()%>"/>
+					<input type="hidden" name="select" value="<%=select%>"/>
+				</form>
+				<a href="javascript:goCart()">장바구니담기</a> | 
+				<a href="javascript:goOrder()">즉시 구매하기</a>
 			</td>
 		</tr>
 		<tr>
