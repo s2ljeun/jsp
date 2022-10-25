@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+	<servlet>
+		<servlet-name>hello</servlet-name>
+		<servlet-class>testServlet.HelloServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>hello</servlet-name>
+		<url-pattern>/hello.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>contact</servlet-name>
+		<servlet-class>testServlet.ContactServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>contact</servlet-name>
+		<url-pattern>/result.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+	
+	<servlet-name>memoInsert</servlet-name>
+	
+	<servlet-class>memo.MemoInsertServlet</servlet-class>
+	
+	</servlet>
+	
+	
+	<servlet-mapping>
+	
+	<servlet-name>memoInsert</servlet-name>
+	
+	<url-pattern>/memo.do</url-pattern>
+	
+	</servlet-mapping>
+	
+	
+	<servlet>
+	
+	<servlet-name>memoList</servlet-name>
+	
+	<servlet-class>memo.MemoListServlet</servlet-class>
+	
+	</servlet>
+	
+	
+	<servlet-mapping>
+	
+	<servlet-name>memoList</servlet-name>
+	
+	<url-pattern>/listMemo.do</url-pattern>
+	
+	</servlet-mapping>
+	
+</web-app>
