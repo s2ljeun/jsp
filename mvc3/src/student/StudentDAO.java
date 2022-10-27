@@ -3,29 +3,31 @@ package student;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.*; //Context와 InitialContext가 들어있는 클래스
+import javax.sql.DataSource;
 public class StudentDAO {	//Data Access Object => CRUD
 	Connection con;
 	PreparedStatement ps;
 	ResultSet rs;
 	
-	String url, user, pass;
-	
-	public StudentDAO() {
+	//server.xml; 최하단에 Resource 변경
+	private static DataSource ds; //서버가 만들어지면 미리
+	static { // 리소스 패키지 연결
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-		}catch(ClassNotFoundException e) {
-			//System.err.println("오라클 드라이버 검색 실패!!");
+			Context init = new InitialContext();
+			ds = (DataSource)init.lookup("java:comp/env/jdbc/oracle"); // 경로/경로/이름/이름 => 이미 만들어진 ds와 연결완료
+		}catch(NamingException e) {
 			e.printStackTrace();
 		}
 		
-		url = "jdbc:oracle:thin:@localhost:1521:xe";
-		user = "bigdata02";
-		pass = "bigdata02";
 	}
+	
+	public StudentDAO() {}
 	
 	public int insertStudent(StudentDTO dto) throws SQLException {
 		try {
-			con = DriverManager.getConnection(url, user, pass);
+			con = ds.getConnection();
 			String sql = "insert into student values(?, ?, ?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getId());
@@ -41,7 +43,7 @@ public class StudentDAO {	//Data Access Object => CRUD
 	
 	public int deleteStudent(String id) throws SQLException {
 		try {
-			con = DriverManager.getConnection(url, user, pass);
+			con = ds.getConnection();
 			String sql = "delete from student where id = ?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, id);
@@ -55,7 +57,7 @@ public class StudentDAO {	//Data Access Object => CRUD
 	
 	public List<StudentDTO> listStudent() throws SQLException {
 		try {
-			con = DriverManager.getConnection(url, user, pass);
+			con = ds.getConnection();
 			String sql = "select * from student";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -70,7 +72,7 @@ public class StudentDAO {	//Data Access Object => CRUD
 	
 	public List<StudentDTO> findStudent(String name) throws SQLException {
 		try {
-			con = DriverManager.getConnection(url, user, pass);
+			con = ds.getConnection();
 			String sql = "select * from student where name=?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, name);
