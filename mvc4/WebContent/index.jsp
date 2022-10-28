@@ -10,7 +10,7 @@
 	<ul>
 		<li><a href="member_index.do">회원관리프로그램</a></li>
 		<li><a href="board_list.do">게시판프로그램</a></li>
-		<li><a href="shop_Mall.do">쇼핑몰프로그램</a></</li>
+		<li><a href="shop_admin.do">쇼핑몰(관리자)프로그램</a></</li>
 	</ul>
 </body>
 </html>

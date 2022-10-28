@@ -17,6 +17,24 @@
 		<servlet-name>member</servlet-name>
 		<url-pattern>*.mem</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>board</servlet-name>
+		<servlet-class>board.BoardServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>board</servlet-name>
+		<url-pattern>*.board</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>shop</servlet-name>
+		<servlet-class>shop.ShopServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>shop</servlet-name>
+		<url-pattern>*.mall</url-pattern>
+	</servlet-mapping>
 
 	
 </web-app>

@@ -42,7 +42,7 @@
 <p>
 <img src="img/tm_login.gif" width=100 height="13" border="0" 
 	align=center ALT="회원 로그인">
-<form name="f" action="login_ok.jsp" method="post">
+<form name="f" action="login_ok.mem" method="post">
 	<table width="60%" align="center" height="120">
 		<tr>
 			<td align="right" width="30%">
