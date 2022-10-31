@@ -29,14 +29,14 @@ public class MemberCommandFactory {
 			cmdIf = new MemberUpdateOkCommand();
 		}else if (cmd.equals("/login.mem")) {
 			cmdIf = new LoginCommand();
-		}else if (cmd.equals("/login_ok.mem")) {
-			cmdIf = new LoginOkCommand();
-		}else if (cmd.equals("/logout.mem")) {
-			cmdIf = new LogoutCommand();
 		}else if (cmd.equals("/member_search.mem")) {
 			cmdIf = new MemberSearchCommand();
 		}else if (cmd.equals("/member_search_ok.mem")) {
 			cmdIf = new MemberSearchOkCommand();
+		}else if (cmd.equals("/login_ok.mem")) {
+			cmdIf = new LoginOkCommand();
+		}else if (cmd.equals("/logout.mem")) {
+			cmdIf = new LogoutCommand();
 		}
 		return cmdIf;
 	}

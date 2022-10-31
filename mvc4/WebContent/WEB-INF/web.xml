@@ -29,7 +29,7 @@
 	
 	<servlet>
 		<servlet-name>shop</servlet-name>
-		<servlet-class>shop.ShopServlet</servlet-class>
+		<servlet-class>shop.ShopMallServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>shop</servlet-name>

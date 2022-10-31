@@ -29,7 +29,7 @@ public class FrontAppServlet extends HttpServlet{
 		}else if (cmd.equals("/index.do")) {
 			nextPage = "index.jsp";
 		}else if (cmd.equals("/shop_admin.do")) {
-			nextPage = "shopAdmin.mall";
+			nextPage = "shopAdminIndex.mall";
 		}
 		
 		RequestDispatcher view = req.getRequestDispatcher(nextPage);

@@ -161,7 +161,7 @@
       	</Resource>
       </Context>
       
-      <Context docBase="myHome" path="/myHome" reloadable="true" source="org.eclipse.jst.jee.server:myHome"/></Host>
+      <Context docBase="myHome" path="/myHome" reloadable="true" source="org.eclipse.jst.jee.server:myHome"/><Context docBase="el" path="/el" reloadable="true" source="org.eclipse.jst.jee.server:el"/><Context docBase="jstl" path="/jstl" reloadable="true" source="org.eclipse.jst.jee.server:jstl"/></Host>
     </Engine>
   </Service>
 </Server>

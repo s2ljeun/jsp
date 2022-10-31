@@ -161,7 +161,7 @@
       	</Resource>
       </Context>
       
-      <Context docBase="G:\jieun\study2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\myHome" path="/myHome" reloadable="true" source="org.eclipse.jst.jee.server:myHome"/></Host>
+      <Context docBase="G:\jieun\study2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\myHome" path="/myHome" reloadable="true" source="org.eclipse.jst.jee.server:myHome"/><Context docBase="G:\jieun\study2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\el" path="/el" reloadable="true" source="org.eclipse.jst.jee.server:el"/><Context docBase="G:\jieun\study2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\jstl" path="/jstl" reloadable="true" source="org.eclipse.jst.jee.server:jstl"/></Host>
     </Engine>
   </Service>
 </Server>
