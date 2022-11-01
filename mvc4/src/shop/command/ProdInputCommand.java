@@ -19,6 +19,11 @@ public class ProdInputCommand implements CommandIf {
 		CategoryBean dao = new CategoryBean();
 		try {
 			List<CategoryDTO> list = dao.listCate();
+			if (list == null || list.size() == 0) {
+				req.setAttribute("msg", "카테고리를 먼저 등록해 주세요!!");
+				req.setAttribute("url", "shopAdminIndex.mall");
+				return "message.jsp";
+			}
 			req.setAttribute("listCate", list);
 			return "WEB-INF/shop/admin/prod_input.jsp";
 		}catch(SQLException e) {	

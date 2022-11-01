@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" import="java.util.*, shop.dto.*"%>
+    pageEncoding="EUC-KR"%>
 <!-- prod_list.jsp -->
 <%@ include file="top.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 	function checkDel(pnum, pimage){
 		var isDel = window.confirm("정말로 삭제하시겠습니까?")
@@ -24,34 +25,29 @@
 			<th class="m2">수량</th>
 			<th class="m2">수정|삭제</th>
 		</tr>
-<%
-		List<ProductDTO> list = (List)request.getAttribute("listProd");
-		if (list == null || list.size() == 0){%>
+	<c:if test="${empty listProd}">
 		<tr>
 			<td colspan="7">등록된 상품이 없습니다.</td>
-		</tr>
-<%	}else { 
-			 for(ProductDTO dto : list){%>
+		</tr>	
+	</c:if>	
+	<c:forEach var="dto" items="${listProd}">
 		<tr>
-			<td><%=dto.getPnum()%></td>
-			<td><%=dto.getPcategory_fk()%></td>
-			<td><%=dto.getPname()%></td>
+			<td>${dto.pnum}</td>
+			<td>${dto.pcategory_fk}</td>
+			<td>${dto.pname}</td>
 			<td>
-			<%	String filename = config.getServletContext().getRealPath("images");
-					filename += "/" + dto.getPimage();%>
-				<a href="prod_view.mall?pnum=<%=dto.getPnum()%>">
-					<img src="<%=filename%>" width="50" height="40">
+				<a href="prod_view.mall?pnum=${dto.pnum}">
+					<img src="${upPath}/${dto.pimage}" width="50" height="40">
 				</a>
 			</td>
-			<td><%=dto.getPrice()%></td>
-			<td><%=dto.getPqty()%></td>
+			<td>${dto.price}</td>
+			<td>${dto.pqty}</td>
 			<td>
-				<a href="prod_update.mall?pnum=<%=dto.getPnum()%>">수정</a> |
-				<a href="javascript:checkDel('<%=dto.getPnum()%>','<%=dto.getPimage()%>')">삭제</a>
+				<a href="prod_update.mall?pnum=${dto.pnum}">수정</a> |
+				<a href="javascript:checkDel('${dto.pnum}','${dto.pimage}')">삭제</a>
 			</td>
 		</tr>			 
-<%		} 
-		}%>				
+	</c:forEach>			
 	</table>		
 </div>
 <%@ include file="bottom.jsp"%>

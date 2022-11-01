@@ -43,6 +43,12 @@ public class ShopCommandFactory {
 			cmdIf = new MallProdViewCommand();
 		}else if (cmd.equals("/mall_cartAdd.mall")) {
 			cmdIf = new MallCartAddCommand();
+		}else if (cmd.equals("/mall_cartList.mall")) {
+			cmdIf = new MallCartListCommand();
+		}else if (cmd.equals("/mall_cartDel.mall")) {
+			cmdIf = new MallCartDelCommand();
+		}else if (cmd.equals("/mall_cartEdit.mall")) {
+			cmdIf = new MallCartEditCommand();
 		}
 		return cmdIf;
 	}

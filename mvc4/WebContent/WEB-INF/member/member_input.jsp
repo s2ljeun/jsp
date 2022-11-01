@@ -2,7 +2,6 @@
     pageEncoding="EUC-KR"%>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="style.css">
 		<script type="text/javascript">
 			function check(){
 				if (f.id.value==""){
@@ -19,11 +18,6 @@
 			}
 		</script>
 	</head>
-<%
-		String name = (String)session.getAttribute("name");
-		String ssn1 = (String)session.getAttribute("ssn1");
-		String ssn2 = (String)session.getAttribute("ssn2");
-%>
 	<body>	
 		<form name="f" method="post" action="member_input_ok.mem">
 			<table width="550" align="center" class="outline">
@@ -33,8 +27,8 @@
 				<tr>
 					<td width="150" class="m3">이름</td>
 					<td class="m3">
-						<input type="text" name="name" class="box" value="<%=name%>" disabled>
-						<input type="hidden" name="name" value="<%=name%>"/>
+						<input type="text" name="name" class="box" value="${sessionScope.name}" disabled>
+						<input type="hidden" name="name" value="${sessionScope.name}"/>
 					</td>
 				</tr>
 				<tr>
@@ -52,8 +46,8 @@
   				<tr>
 					<td width="150" class="m3">주민번호</td>
 					<td class="m3">
-						<input type="text" name="ssn1" class="box" value="<%=ssn1%>" readOnly> -
-				<input type="password" name="ssn2" class="box" value="<%=ssn2%>" readOnly>
+						<input type="text" name="ssn1" class="box" value="${sessionScope.ssn1}" readOnly> -
+				<input type="password" name="ssn2" class="box" value="${sessionScope.ssn2}" readOnly>
 					</td>
   				</tr>
   				<tr>

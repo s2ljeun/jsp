@@ -32,6 +32,8 @@ public class MallCommand implements CommandIf {
 				return "message.jsp";
 			}
 			session.setAttribute("clist", clist);
+			String upPath = req.getServletContext().getRealPath("images");
+			session.setAttribute("upPath", upPath);
 			List<ProductDTO> hitList = plist.selectBySpec("HIT");
 			List<ProductDTO> newList =  plist.selectBySpec("NEW");
 			List<ProductDTO> bestList = plist.selectBySpec("BEST");

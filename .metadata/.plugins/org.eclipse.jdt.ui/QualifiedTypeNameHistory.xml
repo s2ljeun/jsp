@@ -18,9 +18,15 @@
 <fullyQualifiedTypeName name="shop.command.CommandIf"/>
 <fullyQualifiedTypeName name="java.sql.SQLException"/>
 <fullyQualifiedTypeName name="shop.dao.CategoryDAO"/>
-<fullyQualifiedTypeName name="shop.dto.CategoryDTO"/>
 <fullyQualifiedTypeName name="com.oreilly.servlet.MultipartRequest"/>
 <fullyQualifiedTypeName name="shop.dao.ProductDAO"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="shop.dao.CategoryBean"/>
+<fullyQualifiedTypeName name="shop.dto.CategoryDTO"/>
+<fullyQualifiedTypeName name="shop.dao.ProductBean"/>
+<fullyQualifiedTypeName name="shop.mall.ProductList"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="shop.dto.ProductDTO"/>
+<fullyQualifiedTypeName name="shop.dao.CartBean"/>
 </qualifiedTypeNameHistroy>

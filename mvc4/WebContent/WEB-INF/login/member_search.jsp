@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!-- searchMember.jsp -->
-<%
-		String mode = request.getParameter("mode");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 	<title>회원찾기</title>
@@ -37,11 +35,12 @@
 <body>
 	<div align="center">
 		<hr color="green" width="300">
-<%	if (mode.equals("id")){ %>		
+		<c:if test="${param.mode == 'id'}">		
 		<h2>아 이 디 찾 기</h2>
-<%	}else { %>		
+		</c:if>
+		<c:if test="${param.mode != 'id'}">		
 		<h2>비 밀 번 호 찾 기</h2>
-<%	} %>		
+		</c:if>		
 		<hr color="green" width="300">
 		<form name="f" action="member_search_ok.mem" method="post" onsubmit="return check()">
 			<table width="500" class="outline">
@@ -54,12 +53,12 @@
 					<td><input type="text" name="ssn1" class="box" maxlength="6"> - 
 					<input type="password" name="ssn2" class="box" maxlength="7"></td>
 				</tr>
-<%			if (mode.equals("pw")){%>
+			<c:if test="${param.mode == 'pw '}">
 				<tr>
 					<th>아이디</th>
 					<td><input type="text" name="id" class="box"></td>
 				</tr>	
-<%			} %>				
+			</c:if>				
 				<tr>
 					<td colspan="2" align="center">
 						<input type="submit" value="조회">

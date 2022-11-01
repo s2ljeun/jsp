@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR" import="shop.dto.*"%>
 <!-- prod_update.jsp -->
-<%
-		ProductDTO dto = (ProductDTO)request.getAttribute("getProduct");
-%>
 <%@ include file="top.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 	function check(){
 		if (f.pname.value==""){
@@ -42,67 +40,65 @@
 </script>
 <div align="center">
 	<form name="f" action="prod_update_ok.mall" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="pnum" value="<%=dto.getPnum()%>"/>
+		<input type="hidden" name="pnum" value="${getProduct.pnum}"/>
 		<table class="outline" width="600">
 			<caption><font size="4"><b>상품수정</b></font></caption>
 			<tr>
 				<th class="m2" width="20%">카테고리</th>
 				<td>
-					<input type="text" name="pcategory_fk" value="<%=dto.getPcategory_fk()%>" disabled>
+					<input type="text" name="pcategory_fk" value="${getProduct.pcategory_fk}" disabled>
 				</td>
 			</tr>
 			<tr>
 				<th class="m2">상품번호</th>
-				<td><%=dto.getPnum()%></td>
+				<td>${getProduct.pnum}</td>
 			</tr>
 			<tr>
 				<th class="m2">상품명</th>
-				<td><input type="text" name="pname" class="box" value="<%=dto.getPname()%>"></td>
+				<td><input type="text" name="pname" class="box" value="${getProduct.pname}"></td>
 			</tr>
 			<tr>
 				<th class="m2">제조회사</th>
-				<td><input type="text" name="pcompany" class="box" value="<%=dto.getPcompany()%>"></td>
+				<td><input type="text" name="pcompany" class="box" value="${getProduct.pcompany}"></td>
 			</tr>
 			<tr>
 				<th class="m2">상품이미지</th>
 				<td>
-			<%	String filename = config.getServletContext().getRealPath("/myshop/images");
-					filename += "/" + dto.getPimage();%>
-					<img src="<%=filename%>" width="200" height="150">					
+					<img src="${upPath}/${getProduct.pimage}" width="200" height="150">					
 					<input type="file" name="pimage" class="box" size="50">
-					<input type="hidden" name="pimage2" value="<%=dto.getPimage()%>"/>
+					<input type="hidden" name="pimage2" value="${getProduct.pimage}"/>
 				</td>
 			</tr>
 			<tr>
 				<th class="m2">상품수량</th>
-				<td><input type="text" name="pqty" class="box" value="<%=dto.getPqty()%>"></td>
+				<td><input type="text" name="pqty" class="box" value="${getProduct.pqty}"></td>
 			</tr>
 			<tr>
 				<th class="m2">상품가격</th>
-				<td><input type="text" name="price" class="box" value="<%=dto.getPrice()%>"></td>
+				<td><input type="text" name="price" class="box" value="${getProduct.price}"></td>
 			</tr>
 			<tr>
 				<th class="m2">상품스팩</th>
 				<td>
-<%			String spec[] = new String[]{"NORMAL", "HIT", "BEST", "NEW"}; %>				
-					<select name="pspec">
-<%				for(int i=0; i<spec.length; ++i){
-						if (dto.getPspec().equals(spec[i])){%>
-						<option value="<%=spec[i]%>" selected><%=spec[i]%></option> 					
-<%					}else { %>
-						<option value="<%=spec[i]%>"><%=spec[i]%></option>
-<%					}
-					}%>
-					</select>
+				<select name="pspec">
+					<c:forTokens var="spec" items="NORMAL,HIT,BEST,NEW" delims=",">
+						<c:if test="${spec == getProduct.pspec}">
+							<option value="${spec}" selected>${spec}</option>
+						</c:if>
+						<c:if test="${spec != getProduct.pspec}">
+							<option value="${spec}">${spec}</option>
+						</c:if>
+					</c:forTokens>
+				</select>					
 				</td>
 			</tr>
 			<tr>
 				<th class="m2">상품소개</th>
-				<td><textarea name="pcontents" rows="5" cols="60"><%=dto.getPcontents()%></textarea>
+				<td><textarea name="pcontents" rows="5" cols="60">${getProduct.pcontents}</textarea>
 			</tr>
 			<tr>
 				<th class="m2">상품포인트</th>
-				<td><input type="text" name="point" class="box" value="<%=dto.getPoint()%>"></td>
+				<td><input type="text" name="point" class="box" value="${getProduct.point}"></td>
 			</tr>
 			<tr>
 				<td colspan="2">

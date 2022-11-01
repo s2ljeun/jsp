@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" import="java.util.*, shop.dto.*"%>
+    pageEncoding="EUC-KR"%>
 <!-- prod_input.jsp -->
-<%	List<CategoryDTO> list = (List)request.getAttribute("listCate");
-		if (list == null || list.size()==0){%>
-		<script type="text/javascript">
-			alert("카테고리를 먼저 등록해 주세요!!")
-			location.href="shopAdminIndex.mall"
-		</script>
-<%		return;
-		} %>		
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="top.jsp"%>
 <script type="text/javascript">
 	function check(){
@@ -63,9 +56,9 @@
 				<th class="m2">카테고리</th>
 				<td>
 					<select name="pcatecode">
-<%					for(CategoryDTO dto : list){ %>
-						<option value="<%=dto.getCode()%>"><%=dto.getCname()%>[<%=dto.getCode()%>]</option>
-<%					} %>						
+				<c:forEach var="dto" items="${listCate}">
+					<option value="${dto.code}">${dto.cname}[${dto.code}]</option>
+				</c:forEach>
 					</select>
 				</td>
 			</tr>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ page import="java.util.*, board.dto.*" %>    
+<%@ page import="java.util.*, board.dto.*" %> <!-- 필요없다 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!-- list.jsp -->
 <html>
 <head>
@@ -27,52 +29,48 @@
 			<th>조회</th>
 			<th>IP</th>
 		</tr>
-<%
-		List<BoardDTO> list = (List)request.getAttribute("listBoard");
-		if (list == null || list.size() == 0){%>
-		<tr>
-			<td colspan="6">등록된 게시글이 없습니다.</td>
-		</tr>
-<%	}else { 
-			int num = (Integer)request.getAttribute("num");
-			for(BoardDTO dto : list){%>
-		<tr>
-			<td><%=num--%></td>
-			<td>
-				<a href="content.board?num=<%=dto.getNum()%>">
-		<%	if(dto.getRe_level() > 0){ %>
-					<img src="img/level.gif" width="<%=dto.getRe_level()*10%>">
-					<img src="img/re.gif">
-		<%	} %>				
-					<%=dto.getSubject()%>
-				</a>
-		<% 	if (dto.getReadcount() > 10){%>
-					<img src="img/hot.gif">
-		<%	} %>		
-			</td>
-			<td><%=dto.getWriter()%></td>
-			<td><%=dto.getReg_date()%></td>
-			<td><%=dto.getReadcount()%></td>
-			<td><%=dto.getIp()%></td>
-		</tr>	
-<%		}	
-		} %>				
+		<c:if test="${empty listBoard}">
+			<tr>
+				<td colspan="6">등록된 게시글이 없습니다.</td>
+			</tr>
+		</c:if>
+		<c:set var="num" value="${requestScope.num}"/>
+		<c:forEach var="dto" items="${listBoard}">
+			<tr>
+				<td>
+					<c:out value="${num}" />
+					<c:set var="num" value="${num-1}" />
+				</td>
+				<td>
+					<a href="content.board?num=${dto.num}">
+						<c:if test="${dto.re_level > 0}">
+							<img src="img/level.gif" width="${dto.re_level * 10}">
+							<img src="img/re.gif">
+						</c:if>
+						${dto.subject}
+					</a>
+						<c:if test="${dto.readcount > 10}">
+							<img src="img/hot.gif">
+						</c:if>
+				</td>
+				<td>${dto.writer}</td>
+				<td>${dto.reg_date}</td>
+				<td>${dto.readcount}</td>
+				<td>${dto.ip}</td>
+			</tr>	
+		</c:forEach>
 	</table>
-<%	if (list != null && list.size() != 0){ 
-			int pageCount = (Integer)request.getAttribute("pageCount");
-			int pageBlock = (Integer)request.getAttribute("pageBlock");
-			int startPage = (Integer)request.getAttribute("startPage");
-			int endPage = (Integer)request.getAttribute("endPage");
-			if (startPage > pageBlock){%>
-			[<a href="list.board?pageNum=<%=startPage-1%>">이전</a>]
-<%		} %>
-<%		for (int i=startPage; i<=endPage; ++i){ %>
-			[<a href="list.board?pageNum=<%=i%>"><%=i%></a>]
-<%		} %>
-<%		if (pageCount > endPage){ %>
-			[<a href="list.board?pageNum=<%=endPage+1%>">다음</a>]
-<%		} %>
-<%	} %>
+	<c:if test="${not empty listBoard}">
+		<c:if test="${startPage > pageBlock}">
+			[<a href="list.board?pageNum=${startPage -1}">이전</a>]
+		</c:if>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			[<a href="list.board?pageNum=${i}">${i}</a>]
+		</c:forEach>
+		<c:if test="${pageCount > endPage}">
+			[<a href="list.board?pageNum=${endPage +1}">다음</a>]
+		</c:if>
+	</c:if>
 </div>
 </body>
 </html>

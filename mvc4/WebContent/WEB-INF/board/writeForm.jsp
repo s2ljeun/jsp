@@ -32,16 +32,21 @@
 	</script>
 </head>
 <%
+/*
 		int num = (Integer)request.getAttribute("num");
 		int re_step = (Integer)request.getAttribute("re_step");
 		int re_level = (Integer)request.getAttribute("re_level");
+		
+		리퀘스트 겟어트리뷰트 -> ${변수명}
+		리퀘스트 겟파라메터 -> ${param.변수명}
+*/
 %>
 <body>
 <div align="center">
 	<form name="f" action="writePro.board" method="post" onsubmit="return checkBoard()">
-		<input type="hidden" name="num" value="<%=num%>"/>
-		<input type="hidden" name="re_step" value="<%=re_step%>"/>
-		<input type="hidden" name="re_level" value="<%=re_level%>"/>
+		<input type="hidden" name="num" value="${num}"/>
+		<input type="hidden" name="re_step" value="${re_step}"/>
+		<input type="hidden" name="re_level" value="${re_level}"/>
 		<table border="1" width="500">
 			<tr bgcolor="yellow">
 				<td colspan="2" align="center">글 쓰 기</td>

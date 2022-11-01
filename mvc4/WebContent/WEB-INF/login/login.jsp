@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ include file="../member/top.jsp"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- login.jsp-->
 <link rel="stylesheet" type="text/css" href="style.css">
 <script type="text/javascript">
@@ -21,20 +22,6 @@
 		document.f.submit()
 	}
 </script>
-<%
-		Cookie ck[] = request.getCookies();
-		String value = null;
-		if (ck != null || ck.length != 0){
-			for(int i=0; i<ck.length; ++i){
-				String name = ck[i].getName();
-				if (name.trim().equals("saveId")){
-					value = ck[i].getValue();
-					break;
-				}
-			}
-		}
-		//value가 null이면 cookie값 없음, value가 null이 아니면 id를 화면에 나타내 줘야 함
-%>
 <div align="center">
 <br>
 <img src="img/bottom.gif" width=570 height="40" border="0" alt="">
@@ -50,22 +37,23 @@
 				width="28" height="11" border="0" alt="아이디">&nbsp;&nbsp;
 			</td>
 			<td width="40%">
-<%		if (value == null){%>			
+			<c:if test="${empty cookie.saveId.value}">
 				<input type="text" name="id" tabindex="1">
-<%		}else { %>
-				<input type="text" name="id" tabindex="1" value="<%=value%>">
-<%		} %>				
+			</c:if>
+			<c:if test="${not empty cookie.saveId.value}">
+				<input type="text" name="id" tabindex="1" value="${cookie.saveId.value}">
+			</c:if>	
 			</td>
 			<td rowspan="2" width="30%" valign="middle">
 				<a href="javascript:loginCheck()">
 					<img src="img/bt_login.gif" border="0" alt="로그인"  tabindex="3">&nbsp;&nbsp;<br>
 				</a>
 				<nobr>
-<%		if (value==null){ %>				
+		
 					<input type="checkbox" name="saveId">
-<%		}else { %>
-					<input type="checkbox" name="saveId" checked>
-<%		} %>					
+
+					<!-- <input type="checkbox" name="saveId" checked> -->
+					
 					<font face="굴림" size="2">아이디 기억하기</font>
 				</nobr>
 			</td>

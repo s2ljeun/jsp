@@ -2,7 +2,9 @@
     pageEncoding="EUC-KR"%>
 <!-- deleteForm.jsp -->
 <%
+/*
 		String num = request.getParameter("num");
+*/
 %>
 <html>
 <head>
@@ -13,7 +15,7 @@
 <div align="center">
 	<b>글삭제</b>
 	<form name="f" action="deletePro.board" method="post">
-		<input type="hidden" name="num" value="<%=num%>"/>
+		<input type="hidden" name="num" value="${param.num}"/>
 		<table border="1" width="300">
 			<tr bgcolor="yellow">
 				<th>비밀번호를 입력해 주세요</th>

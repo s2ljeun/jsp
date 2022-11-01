@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" import="board.dto.*"%>
+    pageEncoding="EUC-KR"%>
 <!-- updateForm.jsp -->
 <%
+/*
 		BoardDTO dto = (BoardDTO)request.getAttribute("getBoard");
+		=> 이제 import도 필요없다!
+*/
 %>
 <html>
 <head>
@@ -33,23 +36,23 @@
 <div align="center">
 	<b>글수정</b>
 	<form name="f" action="updatePro.board" method="post" onsubmit="return checkBoard()">
-		<input type="hidden" name="num" value="<%=dto.getNum()%>" />
+		<input type="hidden" name="num" value="${getBoard.num}" />
 		<table border="1" width="500">
 			<tr>
 				<th bgcolor="yellow">이 름</th>
-				<td><input type="text" name="writer" value="<%=dto.getWriter()%>" readOnly></td>
+				<td><input type="text" name="writer" value="${getBoard.writer}" readOnly></td>
 			</tr>
 			 <tr>
 				<th bgcolor="yellow">제 목</th>
-				<td><input type="text" name="subject" size="50" value="<%=dto.getSubject()%>"></td>
+				<td><input type="text" name="subject" size="50" value="${getBoard.subject}"></td>
 			</tr>
 			<tr>
 				<th bgcolor="yellow">Email</th>
-				<td><input type="text" name="email" size="50" value="<%=dto.getEmail()%>"></td>
+				<td><input type="text" name="email" size="50" value="${getBoard.email}"></td>
 			</tr>
 			<tr>
 				<th bgcolor="yellow">내 용</th>
-				<td><textarea name="content" rows="11" cols="50"><%=dto.getContent()%></textarea></td>
+				<td><textarea name="content" rows="11" cols="50">${getBoard.content}</textarea></td>
 			</tr>
 			<tr>
 				<th bgcolor="yellow">비밀번호</th>

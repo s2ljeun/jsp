@@ -1,99 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" import="java.text.*"%>
+    pageEncoding="EUC-KR"%>
 <!-- mall.jsp -->
 <%@ include file="mall_top.jsp"%>
-<%
-		DecimalFormat df = new DecimalFormat("###,###");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <div align="center"  style="overflow:scroll; width:100%; height:500">
 	<h3>Welcome to My Mall</h3>
-<%	List<ProductDTO> plist1 = (List)request.getAttribute("hitList"); 
-		if (plist1 == null || plist1.size() == 0){
-			out.println("<b>HIT 상품이 없습니다.</b>");
-		}else {%>
+	<c:if test="${empty hitList}">
+		<b>HIT 상품이 없습니다.</b>
+	</c:if>
+	<c:if test="${not empty hitList}">
 		<hr color="green" width="80%">
 		<font size="5">HIT</font>	
 		<hr color="green" width="80%">
 		<table border="0" width="80%">
 			<tr>
-<%			String upPath = config.getServletContext().getRealPath("images");	
-				int count = 0;
-				for(ProductDTO pdto : plist1){ %>
-				<td align="center">
-					<a href="mall_prodView.mall?pnum=<%=pdto.getPnum()%>&select=HIT">
-						<img src="<%=upPath%>/<%=pdto.getPimage()%>" width="80" height="60">
-					</a>
-					<br>
-					<%=pdto.getPname()%><br>
-					<font color="red"><%=df.format(pdto.getPrice())%></font>원<br>
-					<font color="green">[<%=pdto.getPoint()%>]</font>point
-				</td>
-<%				count++;
-					if (count%3==0){%>
-						</tr><tr>					
-<%				}
-				}%>				
+				<c:set var="count" value="0" />
+				<c:forEach var="pdto" items="${hitList}">
+					<td align="center">
+						<a href="mall_prodView.mall?pnum=${pdto.pnum}&select=HIT">
+							<img src="${upPath}/${pdto.pimage}" width="80" height="60">
+						</a>
+						<br>
+						${pdto.pname}<br>
+						<font color="red"><fmt:formatNumber value="${pdto.price}" pattern="000,000"/></font>원<br>
+						<font color="green">[${pdto.point}]</font>point
+					</td>
+					<c:set var="count" value="${count+1}"/>
+					<c:if test="${count%3==0}">
+						</tr><tr>
+					</c:if>
+				</c:forEach>
 			</tr>
 		</table>
-<%	} %>	
-<%	List<ProductDTO> plist2 = (List)request.getAttribute("bestList"); 
-		if (plist2 == null || plist2.size() == 0){
-			out.println("<b>BEST 상품이 없습니다.</b>");
-		}else {%>
+	</c:if>
+	<c:if test="${empty bestList}">
+		<b>BEST 상품이 없습니다.</b>
+	</c:if>
+	<c:if test="${not empty bestList}">
 		<hr color="green" width="80%">
 		<font size="5">BEST</font>	
 		<hr color="green" width="80%">
 		<table border="0" width="80%">
 			<tr>
-<%			String upPath = config.getServletContext().getRealPath("images");	
-				int count = 0;
-				for(ProductDTO pdto : plist2){ %>
-				<td align="center">
-					<a href="mall_prodView.mall?pnum=<%=pdto.getPnum()%>&select=BEST">
-						<img src="<%=upPath%>/<%=pdto.getPimage()%>" width="80" height="60">
-					</a>
-					<br>
-					<%=pdto.getPname()%><br>
-					<font color="red"><%=df.format(pdto.getPrice())%></font>원<br>
-					<font color="green">[<%=pdto.getPoint()%>]</font>point
-				</td>
-<%				count++;
-					if (count%3==0){%>
-						</tr><tr>					
-<%				}
-				}%>				
+				<c:set var="count" value="0" />
+				<c:forEach var="pdto" items="${bestList}">
+					<td align="center">
+						<a href="mall_prodView.mall?pnum=${pdto.pnum}&select=BEST">
+							<img src="${upPath}/${pdto.pimage}" width="80" height="60">
+						</a>
+						<br>
+						${pdto.pname}<br>
+						<font color="red"><fmt:formatNumber value="${pdto.price}" pattern="000,000"/></font>원<br>
+						<font color="green">[${pdto.point}]</font>point
+					</td>
+					<c:set var="count" value="${count+1}"/>
+					<c:if test="${count%3==0}">
+						</tr><tr>
+					</c:if>
+				</c:forEach>
 			</tr>
 		</table>
-<%	} %>	
-<%	List<ProductDTO> plist3 = (List)request.getAttribute("newList"); 
-		if (plist3 == null || plist3.size() == 0){
-			out.println("<b>NEW 상품이 없습니다.</b>");
-		}else {%>
+	</c:if>
+	<c:if test="${empty newList}">
+		<b>NEW 상품이 없습니다.</b>
+	</c:if>
+	<c:if test="${not empty newList}">
 		<hr color="green" width="80%">
 		<font size="5">NEW</font>	
 		<hr color="green" width="80%">
 		<table border="0" width="80%">
 			<tr>
-<%			String upPath = config.getServletContext().getRealPath("images");	
-				int count = 0;
-				for(ProductDTO pdto : plist3){ %>
-				<td align="center">
-					<a href="mall_prodView.mall?pnum=<%=pdto.getPnum()%>&select=NEW">
-						<img src="<%=upPath%>/<%=pdto.getPimage()%>" width="80" height="60">
-					</a>
-					<%=pdto.getPname()%><br>
-					<font color="red"><%=df.format(pdto.getPrice())%></font>원<br>
-					<font color="green">[<%=pdto.getPoint()%>]</font>point
-				</td>
-<%				count++;
-					if (count%3==0){%>
-						</tr><tr>					
-<%				}
-				}%>				
+				<c:set var="count" value="0" />
+				<c:forEach var="pdto" items="${newList}">
+					<td align="center">
+						<a href="mall_prodView.mall?pnum=${pdto.pnum}&select=NEW">
+							<img src="${upPath}/${pdto.pimage}" width="80" height="60">
+						</a>
+						<br>
+						${pdto.pname}<br>
+						<font color="red"><fmt:formatNumber value="${pdto.price}" pattern="000,000"/></font>원<br>
+						<font color="green">[${pdto.point}]</font>point
+					</td>
+					<c:set var="count" value="${count+1}"/>
+					<c:if test="${count%3==0}">
+						</tr><tr>
+					</c:if>
+				</c:forEach>
 			</tr>
 		</table>
-<%	} %>	
-</div>	
+	</c:if>
+</div>
 <%@ include file="mall_bottom.jsp"%>			
 
 

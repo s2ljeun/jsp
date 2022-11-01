@@ -25,8 +25,6 @@ public class MallCgProdListCommand implements CommandIf {
 		ProductList plist = (ProductList)session.getAttribute("prodList");
 		try {
 			List<ProductDTO> pcode = plist.selectByCode(code);
-			req.setAttribute("code", code);
-			req.setAttribute("cname", cname);
 			req.setAttribute("pcode", pcode);
 			session.setAttribute("prodList", plist);
 			return "WEB-INF/shop/display/mall_cgProdList.jsp";
